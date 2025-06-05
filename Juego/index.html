@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spider-Man Clicker</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="main-wrapper-3col">
+      <!-- Izquierda: Botón principal -->
+      <div class="left-panel">
+        <div class="score-header">
+          <div class="score-main">
+            <img src="Spider-Bot.png" alt="Spider-Bot" class="score-coin" />
+            <span id="score">0</span>
+          </div>
+          <div class="score-ps">
+            <span id="pointsPerSecond">0</span> por segundo
+          </div>
+        </div>
+        <div class="comic-effect-container" id="comicEffectContainer"></div>
+        <button class="spiderman-btn" id="clickButton">
+          <img src="Morlun.png" alt="Morlun" class="morlun-img" />
+        </button>
+      </div>
+      <!-- Centro: Diario tipo Daily Bugle -->
+      <div class="center-panel-news">
+        <div class="daily-bugle-header">DAILY BUGLE</div>
+        <div class="news-box" id="newsBox">
+          <div class="news-content">
+            <h1 id="newsTitle" class="news-title">Daily Bugle News</h1>
+            <div class="news-subtitle-container">
+              <p id="newsSubtitle" class="news-subtitle visible">Latest Updates</p>
+            </div>
+            <div class="news-body-container">
+              <p id="newsBody" class="news-body visible">Welcome to the Daily Bugle News System. News will update every 7 seconds.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Derecha: Tienda -->
+      <div class="shop-panel">
+        <div class="shop-title">Tienda de Mejoras</div>
+        <div class="shop-list" id="shopList">
+          <!-- Aquí se renderizan las mejoras/edificios -->
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
