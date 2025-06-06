@@ -1,0 +1,160 @@
+// Iniciar generación automática
+generatePoints();
+setInterval(generatePoints, 1000); // Cada segundo
+
+// Mostrar globo de texto tipo cómic (estilo notificación)
+function showPurchaseMessage(id) {
+  try {
+    const frasesPorItem = {
+      webShooter: [
+        "Arriba, arriba y ¡al vuelo, telaraña!",
+        "Los lanzatelarañas son mi sello personal.",
+        "¡Con estos lanzatelarañas, puedo ser Spider-Man!",
+        "El balanceo es ciencia y arte.",
+        "¡Estos cartuchos se agotan rápido!",
+        "¡No hay nada como el sonido de un lanzatelarañas!",
+        "Mi mejor invento... después de las telarañas inteligentes.",
+        "¿Alguna vez viste un disparo más elegante?",
+        "¡Balanceo total, estilo Spidey!",
+        "Hechos en casa, como todo héroe de barrio."
+      ],
+      auntMay: [
+        "Sé bueno. Eso es todo lo que importa.",
+        "Peter, siempre estoy orgullosa de vos.",
+        "Ayudá a quien lo necesite, sin esperar nada.",
+        "Creo que hay un héroe en cada uno de nosotros...",
+        "El mundo es cruel, pero vos no tenés que serlo.",
+        "Tenés más bondad que cualquier otro héroe.",
+        "No necesitás poderes para hacer el bien.",
+        "Sos mi esperanza.",
+        "El amor es tu mayor fuerza.",
+        "No importa en qué te conviertas... siempre serás mi Peter."
+      ],
+      uncleBen: [
+        "Un gran poder conlleva una gran responsabilidad.",
+        "Haz lo correcto, incluso si duele.",
+        "No luches por venganza, luchá por justicia.",
+        "Sos más fuerte de lo que pensás.",
+        "No siempre se puede ganar, así es la vida.",
+        "No es lo que tenés... es lo que hacés con ello.",
+        "Peter, fuiste criado con valores.",
+        "El verdadero héroe se mide en sacrificios.",
+        "Tu corazón siempre guiará tu poder.",
+        "Elegí ser mejor. Siempre."
+      ],
+      mj: [
+        "Vas a lograrlo, tigre.",
+        "No te ofendas, pero te equivocas, no estamos en caminos separados, tú eres mi camino, y siempre vas a ser mi camino.",
+        "Peter, incluso con la máscara, sé quién eres.",
+        "Si esperas la decepción, entonces nunca podrás lograrlo realmente...",
+        "No te rindas, Peter.",
+        "Sos mi héroe, con o sin traje.",
+        "Te quiero por lo que sos.",
+        "Incluso los héroes necesitan amor.",
+        "No importa cuántas veces caigas.",
+        "Siempre estaré para levantarte."
+      ],
+      gwen: [
+        "Moriría sabiendo que te quise.",
+        "A veces, los héroes también aman.",
+        "Tú eres mi camino y siempre vas a ser mi camino",
+        "Lo hiciste lo mejor que pudiste.",
+        "Yo creí en vos.",
+        "Fuiste mi primer y único amor.",
+        "Nunca dejes de luchar, por vos... y por mí.",
+        "Te recordarán como un héroe.",
+        "El amor también salva.",
+        "Incluso sin poderes, fui valiente."
+      ],
+      miles: [
+        "Cualquiera puede usar la máscara.",
+        "El salto de fe es el primer paso.",
+        "Todos podemos hacer el bien.",
+        "Mi estilo. Mi ritmo. Mi ciudad.",
+        "Ser Spider-Man es más que balancearse.",
+        "No se trata de imitar, se trata de ser.",
+        "Lo hago a mi manera.",
+        "Brooklyn está a salvo conmigo.",
+        "Tengo miedo... pero lo hago igual.",
+        "No nací héroe. Me convertí."
+      ],
+      blackCat: [
+        "¿Te dejé sin palabras, arañita?",
+        "El peligro me queda bien.",
+        "¿Me estás siguiendo o es casualidad?",
+        "Una ladrona con estilo... y corazón.",
+        "No soy del todo buena... ni del todo mala.",
+        "¿Me atrapaste o fue al revés?",
+        "Felicia siempre deja huella.",
+        "Tu sentido arácnido vibra... ¿por mí?",
+        "Riesgo y encanto. Mi especialidad.",
+        "Una gata siempre cae de pie."
+      ],
+      otto: [
+        "El poder del sol... en la palma de mi mano.",
+        "Soy un científico, no un monstruo.",
+        "Superioridad es eficiencia.",
+        "La lógica supera la emoción.",
+        "El error fue sentir.",
+        "Peter... admiré tu mente.",
+        "Mis brazos... mis fallas... mi redención.",
+        "Estoy por encima de la moral común.",
+        "No más caos. Solo control.",
+        "La ciencia siempre gana."
+      ],
+      greenGoblin: [
+        "¿Sabés cuántos he matado por menos?",
+        "¡No sabés lo que sacrifico por vos!",
+        "¡Peter, fuiste como un hijo!",
+        "¡Moriremos como familia!",
+        "Norman ya no está... solo queda el Duende.",
+        "¡Vamos, acaba conmigo si te atrevés!",
+        "¡Soy tu peor pesadilla hecha risa!",
+        "No podés esconderte de mí.",
+        "¡Todo héroe necesita su villano!",
+        "¡Este es el legado que te dejo, Peter!"
+      ],
+      eddie: [
+        "Nosotros somos Venom.",
+        "Spider-Man... ¿extrañás mi sombra?",
+        "No necesitás red para atrapar miedo.",
+        "Nuestra ira no se calma.",
+        "Fuiste mi ruina... ahora soy tu castigo.",
+        "Nadie se esconde de Venom.",
+        "Somos el monstruo que creaste.",
+        "Te vamos a devorar... lentamente.",
+        "El protector letal está en casa.",
+        "La justicia no siempre es limpia."
+      ],
+      harry: [
+        "Fuiste mi mejor amigo.",
+        "No quiero convertirme en él... pero no sé cómo evitarlo.",
+        "Siempre pensé que estarías de mi lado.",
+        "Tal vez me perdí... pero no estoy roto.",
+        "Esto no era lo que quería, Pete.",
+        "Odio lo que siento... pero no te odio a vos.",
+        "No soy como mi padre... ¿o sí?",
+        "No es fácil cargar con ese apellido.",
+        "Te necesito ahora más que nunca.",
+        "No quiero perderte otra vez."
+      ]
+    };
+
+    const frases = frasesPorItem[id];
+    if (!frases) {
+      console.error(`No se encontraron frases para el ID: ${id}`);
+      return;
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = "notification-bubble";
+    bubble.textContent = frases[Math.floor(Math.random() * frases.length)];
+    document.body.appendChild(bubble);
+
+    // Agregar animación de entrada
+    bubble.style.opacity = "0";
+    bubble.style.transform = "translateY(-20px)";
+    requestAnimationFrame(() => {
+      bubble.style.opacity = "1";
+      bubble.style.transform = "translateY(0)";
+    });

@@ -1,0 +1,108 @@
+// 🕷️ RECLUTABLES: SPIDER-MAN MULTIVERSO (desbloqueado con Portal Dimensional)
+const RECRUITABLE_HEROES = [
+  {
+    id: "scarletSpider",
+    name: "Scarlet Spider (Ben Reilly)",
+    icon: "🩸",
+    cost: 2200000,
+    description: "Ben Reilly se une desde los clones del pasado."
+  },
+  {
+    id: "superiorSpider",
+    name: "Superior Spider-Man (Otto)",
+    icon: "👓",
+    cost: 2400000,
+    description: "Otto Octavius toma el control... de forma superior."
+  },
+  {
+    id: "spiderHam",
+    name: "Spider-Ham (Peter Porker)",
+    icon: "🐷",
+    cost: 2600000,
+    description: "Desde los cómics más absurdos... ¡Peter Porker!"
+  },
+  {
+    id: "killerSpider",
+    name: "Spider-Man Asesino",
+    icon: "🔪",
+    cost: 2700000,
+    description: "El Spider-Man que cruzó la línea definitiva."
+  },
+  {
+    id: "spiderNoir",
+    name: "Spider-Noir",
+    icon: "🕵️",
+    cost: 2750000,
+    description: "Investiga las sombras del multiverso."
+  },
+  {
+    id: "spiderPunk",
+    name: "Spider-Punk",
+    icon: "🎸",
+    cost: 3000000,
+    description: "Rompe las reglas dimensionales con poder punk."
+  },
+  {
+    id: "spiderGwen",
+    name: "Spider-Gwen",
+    icon: "🎧",
+    cost: 3200000,
+    description: "Gwen patrulla con estilo desde su universo."
+  },
+  {
+    id: "peniParker",
+    name: "Peni Parker",
+    icon: "🤖",
+    cost: 3250000,
+    description: "Peni y su robot SP//dr se unen al escuadrón."
+  },
+  {
+    id: "spider2099",
+    name: "Spider-Man 2099",
+    icon: "🔵",
+    cost: 4000000,
+    description: "Miguel O'Hara mejora la tecnología dimensional."
+  },
+  {
+    id: "ps4Peter",
+    name: "Spider-Man (PS4)",
+    icon: "🎮",
+    cost: 5000000,
+    description: "Peter del Gameverse se une al combate."
+  },
+  {
+    id: "andrewPeter",
+    name: "Peter (Andrew Garfield)",
+    icon: "🧤",
+    cost: 6000000,
+    description: "El asombroso Spider-Man regresa a la acción."
+  },
+  {
+    id: "tobeyPeter",
+    name: "Peter (Tobey Maguire)",
+    icon: "🕶️",
+    cost: 7000000,
+    description: "Peter clásico se lanza a balancearse."
+  },
+  {
+    id: "tomPeter",
+    name: "Peter (Tom Holland)",
+    icon: "🌆",
+    cost: 8000000,
+    description: "Nuestro vecino amigable entra al multiverso."
+  },
+  {
+    id: "spider2211",
+    name: "Spider-Man 2211",
+    icon: "🛰️",
+    cost: 9000000,
+    description: "Spider-Man del futuro llega con tecnodrones."
+  },
+  {
+    id: "captainUniverse",
+    name: "Capitán Universo (Peter Parker)",
+    icon: "🌌",
+    cost: 10000000,
+    description: "El casi dios Peter activa el Enigma Force."
+  }
+];
