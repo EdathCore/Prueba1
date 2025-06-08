@@ -263,6 +263,198 @@ body {
   border-radius: 4px;
 }
 
+.floating-event {
+  position: fixed;
+  font-size: 2.5em;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: all 0.2s ease;
+  z-index: 1000;
+  pointer-events: auto;
+}
+
+.floating-event.hero {
+  color: #4CAF50;
+  text-shadow: 0 0 8px #4CAF50;
+}
+
+.floating-event.villain {
+  color: #f44336;
+  text-shadow: 0 0 8px #f44336;
+}
+
+.floating-event.clicked {
+  transform: scale(0.9) !important;
+  opacity: 0.8;
+}
+
+.notification-bubble {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: black;
+  font-family: "Comic Sans MS", Arial, sans-serif;
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: 18px 28px;
+  border-radius: 30px;
+  max-width: 600px;
+  text-align: center;
+  z-index: 9999;
+  animation: comicFade 2s ease-out forwards;
+  border: 4px solid #111;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Colita estilo globo */
+.notification-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 12px solid transparent;
+  border-top-color: white;
+  z-index: 9998;
+}
+
+.popup {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: yellow;
+  color: black;
+  padding: 10px 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  z-index: 999;
+}
+
+.floating-event {
+  position: fixed;
+  font-size: 2.5rem;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 0 10px #0005;
+  user-select: none;
+  touch-action: manipulation;
+  border: 3px solid transparent;
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.floating-event.hero {
+  background: rgba(0, 255, 0, 0.2);
+  color: #000;
+}
+
+.floating-event.villain {
+  background: rgba(255, 0, 0, 0.2);
+  color: #fff;
+}
+
+.floating-event:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #0008;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.floating-event.clicked {
+  transform: scale(0.9) rotate(10deg);
+  border-color: #fff;
+  box-shadow: 0 0 30px #fff;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.floating-event:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #0008;
+}
+
+.floating-event.clicked {
+  transform: scale(0.9) rotate(10deg);
+  border-color: #fff;
+  box-shadow: 0 0 30px #fff;
+}
+
+.comic-bubble {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  color: #000;
+  padding: 15px 30px;
+  border-radius: 20px;
+  font-family: "Comic Sans MS", Impact, sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  animation: comic-bubble 0.3s ease-out;
+}
+
+@keyframes comic-bubble {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+
+.floating-event.hero {
+  background-color: #d4f8d4;
+  border: 3px solid #4caf50;
+}
+
+.floating-event.villain {
+  background-color: #f8d4d4;
+  border: 3px solid #e53935;
+}
+
+/* Borde negro para la colita */
+.notification-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 14px solid transparent;
+  border-top-color: black;
+  z-index: 9997;
+}
+
+@keyframes comicFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
+  }
+}
+
 .comic-effect-container {
   position: relative;
   width: 220px;

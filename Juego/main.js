@@ -1,5 +1,425 @@
 // ✅ Tienda de Objetos: Mejores y Edificios
 // Objetos comunes (comprables múltiples veces)
+const ultimaFraseMostrada = {};
+const frasesPorItem = {
+  webShooter: [
+    "Arriba, arriba y ¡al vuelo, telaraña!",
+    "Los lanzatelarañas son mi sello personal.",
+    "¡Con estos lanzatelarañas, puedo ser Spider-Man!",
+    "El balanceo es ciencia y arte.",
+    "¡Estos cartuchos se agotan rápido!",
+    "¡No hay nada como el sonido de un lanzatelarañas!",
+    "Mi mejor invento... después de las telarañas inteligentes.",
+    "¿Alguna vez viste un disparo más elegante?",
+    "¡Balanceo total, estilo Spidey!",
+    "Hechos en casa, como todo héroe de barrio."
+  ],
+  auntMay: [
+    "Sé bueno. Eso es todo lo que importa.",
+    "Peter, siempre estoy orgullosa de vos.",
+    "Ayudá a quien lo necesite, sin esperar nada.",
+    "Creo que hay un héroe en cada uno de nosotros...",
+    "El mundo es cruel, pero vos no tenés que serlo.",
+    "Tenés más bondad que cualquier otro héroe.",
+    "No necesitás poderes para hacer el bien.",
+    "Sos mi esperanza.",
+    "El amor es tu mayor fuerza.",
+    "No importa en qué te conviertas... siempre serás mi Peter."
+  ],
+  uncleBen: [
+    "Un gran poder conlleva una gran responsabilidad.",
+    "Haz lo correcto, incluso si duele.",
+    "No luches por venganza, luchá por justicia.",
+    "Sos más fuerte de lo que pensás.",
+    "No siempre se puede ganar, así es la vida.",
+    "No es lo que tenés... es lo que hacés con ello.",
+    "Peter, fuiste criado con valores.",
+    "El verdadero héroe se mide en sacrificios.",
+    "Tu corazón siempre guiará tu poder.",
+    "Elegí ser mejor. Siempre."
+  ],
+  mj: [
+    "Vas a lograrlo, tigre.",
+    "No te ofendas, pero te equivocas, no estamos en caminos separados, tú eres mi camino, y siempre vas a ser mi camino.",
+    "Peter, incluso con la máscara, sé quién eres.",
+    "Si esperas la decepción, entonces nunca podrás lograrlo realmente...",
+    "No te rindas, Peter.",
+    "Sos mi héroe, con o sin traje.",
+    "Te quiero por lo que sos.",
+    "Incluso los héroes necesitan amor.",
+    "No importa cuántas veces caigas.",
+    "Siempre estaré para levantarte."
+  ],
+  gwen: [
+    "Moriría sabiendo que te quise.",
+    "A veces, los héroes también aman.",
+    "Tú eres mi camino y siempre vas a ser mi camino",
+    "Lo hiciste lo mejor que pudiste.",
+    "Yo creí en vos.",
+    "Fuiste mi primer y único amor.",
+    "Nunca dejes de luchar, por vos... y por mí.",
+    "Te recordarán como un héroe.",
+    "El amor también salva.",
+    "Incluso sin poderes, fui valiente."
+  ],
+  miles: [
+    "Cualquiera puede usar la máscara.",
+    "El salto de fe es el primer paso.",
+    "Todos podemos hacer el bien.",
+    "Mi estilo. Mi ritmo. Mi ciudad.",
+    "Ser Spider-Man es más que balancearse.",
+    "No se trata de imitar, se trata de ser.",
+    "Lo hago a mi manera.",
+    "Brooklyn está a salvo conmigo.",
+    "Tengo miedo... pero lo hago igual.",
+    "No nací héroe. Me convertí."
+  ],
+  blackCat: [
+    "¿Te dejé sin palabras, arañita?",
+    "El peligro me queda bien.",
+    "¿Me estás siguiendo o es casualidad?",
+    "Una ladrona con estilo... y corazón.",
+    "No soy del todo buena... ni del todo mala.",
+    "¿Me atrapaste o fue al revés?",
+    "Felicia siempre deja huella.",
+    "Tu sentido arácnido vibra... ¿por mí?",
+    "Riesgo y encanto. Mi especialidad.",
+    "Una gata siempre cae de pie."
+  ],
+  otto: [
+    "El poder del sol... en la palma de mi mano.",
+    "Soy un científico, no un monstruo.",
+    "Superioridad es eficiencia.",
+    "La lógica supera la emoción.",
+    "El error fue sentir.",
+    "Peter... admiré tu mente.",
+    "Mis brazos... mis fallas... mi redención.",
+    "Estoy por encima de la moral común.",
+    "No más caos. Solo control.",
+    "La ciencia siempre gana."
+  ],
+  greenGoblin: [
+    "¿Sabés cuántos he matado por menos?",
+    "¡No sabés lo que sacrifico por vos!",
+    "¡Peter, fuiste como un hijo!",
+    "¡Moriremos como familia!",
+    "Norman ya no está... solo queda el Duende.",
+    "¡Vamos, acaba conmigo si te atrevés!",
+    "¡Soy tu peor pesadilla hecha risa!",
+    "No podés esconderte de mí.",
+    "¡Todo héroe necesita su villano!",
+    "¡Este es el legado que te dejo, Peter!"
+  ],
+  eddie: [
+    "Nosotros somos Venom.",
+    "Spider-Man... ¿extrañás mi sombra?",
+    "No necesitás red para atrapar miedo.",
+    "Nuestra ira no se calma.",
+    "Fuiste mi ruina... ahora soy tu castigo.",
+    "Nadie se esconde de Venom.",
+    "Somos el monstruo que creaste.",
+    "Te vamos a devorar... lentamente.",
+    "El protector letal está en casa.",
+    "La justicia no siempre es limpia."
+  ],
+  harry: [
+    "Fuiste mi mejor amigo.",
+    "No quiero convertirme en él... pero no sé cómo evitarlo.",
+    "Siempre pensé que estarías de mi lado.",
+    "Tal vez me perdí... pero no estoy roto.",
+    "Esto no era lo que quería, Pete.",
+    "Odio lo que siento... pero no te odio a vos.",
+    "No soy como mi padre... ¿o sí?",
+    "No es fácil cargar con ese apellido.",
+    "Te necesito ahora más que nunca.",
+    "No quiero perderte otra vez."
+  ],
+  // Edificios (compras permanentes)
+  mayHouse: [
+    "Aquí empezó todo para Peter.",
+    "El hogar es donde vive la esperanza.",
+    "Tía May siempre dejó la luz encendida.",
+    "No importa qué tan lejos vayas... siempre podés volver.",
+    "Esta casa crió al héroe detrás de la máscara."
+  ],
+  dailyBugle: [
+    "¡SPIDER-MAN ES UNA MENAZA! — J.J. Jameson",
+    "Ningún acto heroico escapa a nuestras portadas.",
+    "Las noticias vuelan... como una telaraña.",
+    "La fama tiene un precio, y empieza con tinta.",
+    "Si no está en el Bugle, no pasó."
+  ],
+  midtown: [
+    "Donde Peter aprendió más que ciencia.",
+    "Acá se balanceó entre la adolescencia y la responsabilidad.",
+    "Midtown: donde nacen genios... o superhéroes.",
+    "Entre deberes y telarañas.",
+    "Un aula, una picadura, un destino."
+  ],
+  oscorp: [
+    "Tecnología... y consecuencias.",
+    "No todo avance es progreso.",
+    "Oscorp: donde el futuro se vuelve inestable.",
+    "Detrás de cada descubrimiento, una sombra.",
+    "Ciencia sin ética es caos."
+  ],
+  avengers: [
+    "Un héroe no está solo.",
+    "La torre más segura… ¿o la más atacada?",
+    "Donde se decide el destino del mundo.",
+    "Un llamado, una misión, un equipo.",
+    "Incluso Spider-Man necesita aliados."
+  ],
+  starkIndustries: [
+    "Inteligencia, recursos… y un toque de ego.",
+    "Peter, esto es solo para genios.",
+    "Stark dejó algo para vos.",
+    "Donde la ciencia se viste de armadura.",
+    "Stark siempre tuvo visión... incluso para vos."
+  ],
+  dimensionalPortal: [
+    "Los hilos del multiverso se entretejen.",
+    "¡El Spider-Verso está abierto!",
+    "Cada universo... un nuevo aliado.",
+    "Una grieta en la realidad... una oportunidad.",
+    "El destino de todos los Spider está en tus manos."
+  ],
+  scarletSpider: [
+    "No soy Peter... pero tengo su corazón.",
+    "Ben Reilly al servicio del bien.",
+    "El clon con más sentido de responsabilidad.",
+    "A veces, ser copia te hace único.",
+    "Vivo con sus recuerdos... pero lucho con los míos.",
+    "Scarlet Spider en acción.",
+    "El pasado me persigue, pero yo corro más rápido.",
+    "Soy mi propia araña.",
+    "Aprendí de Peter. Ahora soy mejor.",
+    "El héroe que nunca debió existir… pero lo hizo."
+  ],
+  superiorSpider: [
+    "¡Ahora soy superior en todo sentido!",
+    "Peter fue bueno... yo soy mejor.",
+    "La ciudad merece un protector más eficiente.",
+    "Con gran inteligencia... viene superioridad.",
+    "No más errores emocionales.",
+    "Los crímenes se resuelven, no se perdonan.",
+    "Spider-Bots patrullando. Orden restaurada.",
+    "Doc Ock con propósito... eso da miedo.",
+    "La moralidad es relativa.",
+    "¡El mundo conocerá al Superior Spider-Man!"
+  ],
+  spiderHam: [
+    "¡Hola, soy Peter Porker!",
+    "¡La justicia es divertida!",
+    "¡Cerdo arácnido en acción!",
+    "¡Los malos son más malos en mi universo!",
+    "¡No hay problema que una telaraña no pueda resolver!",
+    "¡Soy el cerdo más heroico del multiverso!",
+    "¡Los villanos jamás ganarán... ¡ni siquiera en mis sueños!",
+    "¡La granja necesita un héroe!",
+    "¡A veces, ser cerdo es ser el mejor!",
+    "¡Los cerdos también pueden ser héroes!"
+  ],
+  killerSpider: [
+    "No más segundas oportunidades.",
+    "Los criminales entienden una sola lengua: miedo.",
+    "Peter fracasó. Yo no.",
+    "El mundo necesita castigo, no compasión.",
+    "Soy lo que pasa cuando el dolor no se cura.",
+    "Los inocentes están seguros… si yo estoy cerca.",
+    "No juego a ser héroe. Soy sentencia.",
+    "Mi camino es oscuro... y necesario.",
+    "Si cruzás la línea, no hay regreso.",
+    "El asesino que protege… sin piedad."
+  ],
+  spiderNoir: [
+    "En las sombras es donde cazo.",
+    "Las calles tienen memoria, y yo soy su fantasma.",
+    "Fumo la injusticia y la escupo envuelta en telaraña.",
+    "No hay luz sin oscuridad.",
+    "Spider-Noir nunca duerme.",
+    "La ciudad tiene secretos. Yo los escucho.",
+    "Mi sombrero no es solo estilo, es advertencia.",
+    "El crimen no se esconde... se silencia.",
+    "No tengo tiempo para bromas. Solo venganza.",
+    "Entre humo y neón, nace justicia."
+  ],
+  spiderPunk: [
+    "¡Contra el sistema y contra el crimen!",
+    "Telarañas y guitarras: ¡revolución arácnida!",
+    "¡El punk no está muerto, solo se balancea!",
+    "No sigo reglas. Las rompo.",
+    "Spider-Punk levanta el puño y lanza red.",
+    "Cada golpe... un acorde.",
+    "La resistencia lleva máscara.",
+    "¡Anti-establishment con estilo!",
+    "El multiverso necesita ruido... ¡y telarañas!",
+    "¡Gritá si odiás la opresión!"
+  ],
+  spiderGwen: [
+    "No soy quien creés, pero soy suficiente.",
+    "Mi universo. Mis reglas.",
+    "Puedo caer, pero me levanto balanceando.",
+    "La música me calma, el deber me llama.",
+    "Gwen Stacy murió… ahora vive como héroe.",
+    "No soy solo la chica del héroe.",
+    "Telaraña de ritmos y decisiones.",
+    "Mi pasado no me define.",
+    "Incluso con dolor... sigo luchando.",
+    "Soy Spider-Woman. Punto."
+  ],
+  peniParker: [
+    "SP//dr listo para sincronización.",
+    "Unidad conectada. Patrulla activada.",
+    "Mi padre empezó esto. Yo lo continúo.",
+    "No estoy sola. SP//dr está conmigo.",
+    "Tecnología y corazón, la mezcla perfecta.",
+    "No todos los héroes usan trajes. Algunos pilotan.",
+    "SP//dr está recibiendo señales multiversales.",
+    "No importa la edad. Importa el coraje.",
+    "La ciencia también lucha por la justicia.",
+    "Códigos listos. ¡Vamos, SP//dr!"
+  ],
+  spider2099: [
+    "El futuro no necesita héroes... necesita soluciones.",
+    "Soy Miguel O’Hara. Y sí, tengo colmillos.",
+    "Tecnología, ética... y garras.",
+    "Spider-Man 2099 no pregunta. Actúa.",
+    "No nací para esto. Pero lo perfeccioné.",
+    "Las reglas se rompen en mi línea temporal.",
+    "Mi traje es más que elegante.",
+    "Ni el tiempo detiene a Spider-Man.",
+    "Genética mejorada. Coraje intacto.",
+    "El futuro es ahora. Y es mío."
+  ],
+  ps4Peter: [
+    "Ya me golpearon peor que esto. Varias veces.",
+    "Ser héroe no es glamoroso, pero vale la pena.",
+    "Mi ciudad, mis reglas, mis telarañas.",
+    "¡El traje avanzado no hace al héroe... pero ayuda!",
+    "Fisk, Shocker, Mister Negative... ¡la rutina de un lunes!",
+    "No tengo tiempo para descansar. Siempre hay más.",
+    "Este traje aguanta más que yo.",
+    "Peter Parker: héroe, científico, repartidor.",
+    "Mi sentido arácnido se cansó de sonar.",
+    "¿Salvar la ciudad otra vez? ¡Vamos allá!"
+  ],
+  silk: [
+    "Cierro los ojos... y veo el camino.",
+    "Fui encerrada por años. Ahora soy libre.",
+    "Telarañas más rápidas. Respuestas más fuertes.",
+    "No soy Peter... soy Cindy.",
+    "El instinto es mi guía.",
+    "Silencio, precisión y fuerza.",
+    "Aprendí a luchar sola.",
+    "Sigo mi propio hilo.",
+    "Mi conexión con la red es única.",
+    "Lo que escondieron... ahora protege."
+  ],
+  andrew: [
+    "Intento ser mejor cada día.",
+    "No pude salvar a todos… pero sigo intentando.",
+    "Perder duele. Pero rendirse, más.",
+    "¡Soy Spider-Man! ¿Qué esperaban?",
+    "Siempre me levantaré... aunque duela.",
+    "A veces, ser gracioso es todo lo que me queda.",
+    "Lucho por redimirme, no por gloria.",
+    "Fallé... y aprendí.",
+    "Ser Spider-Man no es una elección. Es un deber.",
+    "Cada caída me hizo más fuerte."
+  ],
+  tobeyPeter: [
+    "¡Mi espalda...!",
+    "Soy solo un chico de Queens... con suerte radioactiva.",
+    "El poder no te hace especial. La elección sí.",
+    "El tío Ben tenía razón… siempre la tuvo.",
+    "Incluso el héroe necesita ayuda.",
+    "Los amigos... los verdaderos... siempre vuelven.",
+    "Peter Parker y Spider-Man pueden coexistir.",
+    "El traje no hace al héroe. El corazón sí.",
+    "Balancearse nunca se olvida.",
+    "Siempre vuelvo... porque debo hacerlo."
+  ],
+  tomPeter: [
+    "¿Aún soy un Vengador, cierto?",
+    "¡Soy tu amigable vecino Spider-Man!",
+    "Sr. Stark… lo logré.",
+    "Puedo hacer esto todo el día... espera, eso no era mío.",
+    "El deber no espera vacaciones.",
+    "A veces, sólo quiero ser un chico normal.",
+    "No soy Iron Man. Pero haré lo mejor que pueda.",
+    "Mi ciudad me necesita.",
+    "Siempre hay alguien a quien salvar.",
+    "El barrio me cuida porque yo cuido del barrio."
+  ],
+  spider2211: [
+    "Protocolos temporales activos.",
+    "Spider-Man 2211: online y preparado.",
+    "Los tecnodrones han escaneado tu amenaza.",
+    "La línea temporal debe mantenerse estable.",
+    "No interfieras con la historia.",
+    "El tiempo no es aliado. Es arma.",
+    "Balanceo cuántico en proceso.",
+    "¡Acceso al hiperespacio concedido!",
+    "Soy el vigilante de múltiples eras.",
+    "El futuro depende del presente... y de mí."
+  ],
+  captainUniverse: [
+    "¡Soy el universo hecho araña!",
+    "La Enigma Force me guía.",
+    "Mi poder... es más que telarañas.",
+    "Siento cada átomo vibrar.",
+    "Estoy más allá del tiempo... y del miedo.",
+    "La responsabilidad ahora pesa como galaxias.",
+    "Peter Parker... ahora parte del cosmos.",
+    "Nada me detiene. Nada me toca.",
+    "La red se ha expandido... al infinito.",
+    "Capitán Universo: la forma final del héroe."
+  ],
+  shield: [
+    "¡Director Fury, necesitamos su aprobación!",
+    "S.H.I.E.L.D. siempre está un paso adelante.",
+    "Esta es una operación de alto secreto.",
+    "El ojo de Fury siempre está vigilando.",
+    "¡Esta es una misión de nivel S!"
+  ]
+};
+
+// Mostrar globo de texto tipo cómic (estilo notificación)
+function showPurchaseMessage(id) {
+  const frases = frasesPorItem[id];
+  if (!frases || frases.length === 0) return;
+
+  // Evita repetir la misma frase consecutivamente
+  let frase;
+  do {
+    frase = frases[Math.floor(Math.random() * frases.length)];
+  } while (frase === ultimaFraseMostrada[id] && frases.length > 1);
+
+  ultimaFraseMostrada[id] = frase;
+
+  const bubble = document.createElement("div");
+  bubble.className = "notification-bubble";
+  bubble.textContent = frase;
+  document.body.appendChild(bubble);
+
+  setTimeout(() => {
+    bubble.remove();
+  }, 2000);
+}
+
+// Mostrar mensaje de efecto de evento
+function showComicPopup(message) {
+  const bubble = document.createElement("div");
+  bubble.className = "comic-bubble";
+  bubble.textContent = message;
+  document.body.appendChild(bubble);
+
+  setTimeout(() => {
+    bubble.remove();
+  }, 2000);
+}
+
 const SHOP_OBJECTS = [
   {
     id: "webShooter",
@@ -47,32 +467,33 @@ const SHOP_OBJECTS = [
     type: "repeatable"
   },
   {
-    id: "miles",
+    id: "milesMorales",
     name: "Miles Morales",
-    icon: "🕷️",
-    baseCost: 8000,
-    basePps: 600,
-    description: "¡Miles ayuda a patrullar la ciudad!",
+    icon: "⚡",
+    baseCost: 25000,
+    basePps: 20,
+    description: "El Spider-Man del futuro está aquí.",
     type: "repeatable"
   },
   {
-    id: "blackCat",
+    id: "feliciaHardy",
     name: "Felicia Hardy",
-    icon: "🐾",
-    baseCost: 25000,
-    basePps: 2400,
-    description: "Felicia \"Black Cat\" coquetea... y roba telarañas extra.",
+    icon: "🐱",
+    baseCost: 30000,
+    basePps: 30,
+    description: "La Gata Negra se une a la causa.",
     type: "repeatable"
   },
   {
     id: "otto",
     name: "Otto Octavius",
     icon: "🧠",
-    baseCost: 30000,
+    baseCost: 40000,
     basePps: 2500,
     description: "¡Doc Ock crea máquinas de telaraña (sin querer)!",
     type: "repeatable"
   },
+
   {
     id: "greenGoblin",
     name: "Duende Verde",
@@ -153,6 +574,21 @@ const PERMANENT_BUILDINGS = [
     effect: (gameState) => gameState.pointsPerClick += 100
   },
   {
+    id: "shield",
+    name: "S.H.I.E.L.D.",
+    icon: "🛡️",
+    cost: 1500000,
+    description: "Recursos y tecnología avanzada de S.H.I.E.L.D.",
+    shield: [
+      "¡Director Fury, necesitamos su aprobación!",
+      "S.H.I.E.L.D. siempre está un paso adelante.",
+      "Esta es una operación de alto secreto.",
+      "El ojo de Fury siempre está vigilando.",
+      "¡Esta es una misión de nivel S!"
+    ],
+    effect: (gameState) => gameState.pointsPerClick += 75
+  },
+  {
     id: "dimensionalPortal",
     name: "Portal Dimensional",
     icon: "🌌",
@@ -168,113 +604,145 @@ const RECRUITABLE_HEROES = [
     id: "scarletSpider",
     name: "Scarlet Spider (Ben Reilly)",
     icon: "🩸",
-    cost: 2200000,
-    description: "Ben Reilly se une desde los clones del pasado."
+    baseCost: 2200000,
+    basePps: 250,
+    description: "Ben Reilly se une desde los clones del pasado.",
+    type: "repeatable"
   },
   {
     id: "superiorSpider",
     name: "Superior Spider-Man (Otto)",
     icon: "👓",
-    cost: 2400000,
-    description: "Otto Octavius toma el control... de forma superior."
+    baseCost: 2400000,
+    basePps: 300,
+    description: "Otto Octavius toma el control... de forma superior.",
+    type: "repeatable"
   },
   {
     id: "spiderHam",
     name: "Spider-Ham (Peter Porker)",
     icon: "🐷",
-    cost: 2600000,
-    description: "Desde los cómics más absurdos... ¡Peter Porker!"
+    baseCost: 2600000,
+    basePps: 280,
+    description: "Desde los cómics más absurdos... ¡Peter Porker!",
+    type: "repeatable"
   },
   {
     id: "killerSpider",
     name: "Spider-Man Asesino",
     icon: "🔪",
-    cost: 2700000,
-    description: "El Spider-Man que cruzó la línea definitiva."
+    baseCost: 2700000,
+    basePps: 250,
+    description: "El Spider-Man que cruzó la línea definitiva.",
+    type: "repeatable"
   },
   {
     id: "spiderNoir",
     name: "Spider-Noir",
     icon: "🕵️",
-    cost: 2750000,
-    description: "Investiga las sombras del multiverso."
+    baseCost: 2750000,
+    basePps: 260,
+    description: "Investiga las sombras del multiverso.",
+    type: "repeatable"
   },
   {
     id: "spiderPunk",
     name: "Spider-Punk",
     icon: "🎸",
-    cost: 3000000,
-    description: "Rompe las reglas dimensionales con poder punk."
+    baseCost: 3000000,
+    basePps: 270,
+    description: "Rompe las reglas dimensionales con poder punk.",
+    type: "repeatable"
   },
   {
     id: "spiderGwen",
     name: "Spider-Gwen",
     icon: "🎧",
-    cost: 3200000,
-    description: "Gwen patrulla con estilo desde su universo."
+    baseCost: 3200000,
+    basePps: 280,
+    description: "Gwen patrulla con estilo desde su universo.",
+    type: "repeatable"
   },
   {
     id: "peniParker",
     name: "Peni Parker",
     icon: "🤖",
-    cost: 3250000,
-    description: "Peni y su robot SP//dr se unen al escuadrón."
+    baseCost: 3250000,
+    basePps: 290,
+    description: "Peni y su robot SP//dr se unen al escuadrón.",
+    type: "repeatable"
   },
   {
     id: "spider2099",
     name: "Spider-Man 2099",
     icon: "🔵",
-    cost: 4000000,
-    description: "Miguel O'Hara mejora la tecnología dimensional."
+    baseCost: 4000000,
+    basePps: 300,
+    description: "Miguel O'Hara mejora la tecnología dimensional.",
+    type: "repeatable"
   },
   {
     id: "ps4Peter",
     name: "Spider-Man (PS4)",
     icon: "🎮",
-    cost: 4500000,
-    description: "Peter Parker de la era PS4, más fuerte y más rápido."
+    baseCost: 4500000,
+    basePps: 320,
+    description: "Peter Parker de la era PS4, más fuerte y más rápido.",
+    type: "repeatable"
   },
   {
     id: "silk",
     name: "Cindy Moon/Silk",
     icon: "🕸️",
-    cost: 5200000,
-    description: "La arácnida más poderosa de Nueva York, maestra en el sigilo y el combate."
+    baseCost: 5200000,
+    basePps: 350,
+    description: "La arácnida más poderosa de Nueva York, maestra en el sigilo y el combate.",
+    type: "repeatable"
   },
   {
     id: "andrew",
     name: "Andrew Garfield",
     icon: "🎭",
-    cost: 6500000,
-    description: "El spider-man más emotivo y dramático."
+    baseCost: 6500000,
+    basePps: 380,
+    description: "El spider-man más emotivo y dramático.",
+    type: "repeatable"
   },
   {
     id: "tobeyPeter",
     name: "Peter (Tobey Maguire)",
     icon: "🕶️",
-    cost: 7000000,
-    description: "Peter clásico se lanza a balancearse."
+    baseCost: 7000000,
+    basePps: 400,
+    description: "Peter clásico se lanza a balancearse.",
+    type: "repeatable"
   },
   {
     id: "tomPeter",
     name: "Peter (Tom Holland)",
     icon: "🌆",
-    cost: 8000000,
-    description: "Nuestro vecino amigable entra al multiverso."
+    baseCost: 8000000,
+    basePps: 450,
+    description: "Nuestro vecino amigable entra al multiverso.",
+    type: "repeatable"
   },
   {
     id: "spider2211",
     name: "Spider-Man 2211",
     icon: "🛰️",
-    cost: 9000000,
-    description: "Spider-Man del futuro llega con tecnodrones."
+    baseCost: 9000000,
+    basePps: 500,
+    description: "Spider-Man del futuro llega con tecnodrones.",
+    type: "repeatable"
   },
   {
     id: "captainUniverse",
     name: "Capitán Universo (Peter Parker)",
     icon: "🌌",
-    cost: 10000000,
-    description: "El casi dios Peter activa el Enigma Force."
+    baseCost: 10000000,
+    basePps: 600,
+    description: "El casi dios Peter activa el Enigma Force.",
+    type: "repeatable"
   }
 ];
 
@@ -284,7 +752,13 @@ let gameState = {
   pointsPerClick: 1,
   shopObjects: SHOP_OBJECTS.map((obj) => ({ ...obj, owned: 0, cost: obj.baseCost })),
   permanentBuildings: PERMANENT_BUILDINGS.map((b) => ({ ...b, purchased: false })),
+  spiderHeroes: RECRUITABLE_HEROES.map(hero => ({
+    ...hero,
+    owned: 0,
+    cost: hero.baseCost
+  })),
   dimensionalPortalUnlocked: false,
+  activeVillains: [],
   recruitableHeroesState: RECRUITABLE_HEROES.reduce((acc, hero) => {
     acc[hero.id] = { count: 0, currentCost: hero.cost };
     return acc;
@@ -301,31 +775,51 @@ const comicEffectContainer = document.getElementById("comicEffectContainer");
 
 // Calcular puntos por segundo
 function getTotalPPS() {
-  const basePps = gameState.shopObjects.reduce((sum, obj) => sum + obj.basePps * obj.owned, 0);
-  const heroPps = Object.values(gameState.recruitableHeroesState).reduce((sum, hero) => sum + hero.count * 500, 0);
-  return basePps + heroPps;
+  // Sumar puntos de objetos
+  const objectPPS = gameState.shopObjects.reduce((sum, obj) => {
+    const basePps = obj.basePps || 0;
+    const owned = obj.owned || 0;
+    return sum + basePps * owned;
+  }, 0);
+  
+  // Sumar puntos de héroes
+  const heroesPPS = gameState.spiderHeroes.reduce((sum, hero) => {
+    const basePps = hero.basePps || 0;
+    const owned = hero.owned || 0;
+    return sum + basePps * owned;
+  }, 0);
+  
+  return Math.floor(objectPPS + heroesPPS);
 }
 
 // Actualizar display
 function updateDisplay() {
-  scoreDisplay.textContent = Math.floor(gameState.score);
-  pointsPerSecondDisplay.textContent = getTotalPPS();
+  scoreDisplay.textContent = Math.floor(gameState.score || 0);
+  pointsPerSecondDisplay.textContent = Math.floor(getTotalPPS() || 0);
   updateShopButtons(); // Actualizar solo los botones de la tienda
 }
 
 // Actualizar solo los botones de la tienda
 function updateShopButtons() {
-  // Actualizar botones de objetos y edificios
-  document.querySelectorAll(".shop-item-btn").forEach((btn) => {
-    const type = btn.dataset.type;
+  // Actualizar botones de objetos repetibles
+  document.querySelectorAll(".shop-item-btn[data-type='object']").forEach((btn) => {
     const idx = parseInt(btn.dataset.idx, 10);
-    let isLocked = false;
-    if (type === "object") {
-      isLocked = gameState.score < gameState.shopObjects[idx].cost;
-    } else if (type === "building") {
-      isLocked = gameState.score < gameState.permanentBuildings[idx].cost || gameState.permanentBuildings[idx].purchased;
-    }
-    btn.disabled = isLocked;
+    const obj = gameState.shopObjects[idx];
+    btn.disabled = gameState.score < obj.cost;
+  });
+
+  // Actualizar botones de edificios
+  document.querySelectorAll(".shop-item-btn[data-type='building']").forEach((btn) => {
+    const idx = parseInt(btn.dataset.idx, 10);
+    const building = gameState.permanentBuildings[idx];
+    btn.disabled = gameState.score < building.cost || building.purchased;
+  });
+
+  // Actualizar botones de Spider-Héroes
+  document.querySelectorAll(".shop-item-btn[data-type='hero']").forEach((btn) => {
+    const idx = parseInt(btn.dataset.idx, 10);
+    const hero = gameState.spiderHeroes[idx];
+    btn.disabled = gameState.score < hero.cost;
   });
 
   // Actualizar botones de héroes reclutables
@@ -375,20 +869,21 @@ function renderShop() {
     shopList.appendChild(item);
   });
 
-  // Renderizar Héroes Reclutables
-  shopList.innerHTML += "<h3 class='shop-section-title'>Spider-Héroes</h3>";
-  RECRUITABLE_HEROES.forEach(hero => {
-    const heroState = gameState.recruitableHeroesState[hero.id];
+  // Sección de Spider-Héroes
+  shopList.innerHTML += "<h3 class='shop-section-title'>Spider-Héroes del Multiverso</h3>";
+  gameState.spiderHeroes.forEach((hero, idx) => {
     const item = document.createElement("div");
-    item.className = "shop-item" + (gameState.score < heroState.currentCost ? " locked" : "");
+    item.className = "shop-item" + (gameState.score < hero.cost ? " locked" : "");
     item.innerHTML = `
       <div class="shop-item-icon">${hero.icon}</div>
       <div class="shop-item-info">
-        <div class="shop-item-title">${hero.name} (Nivel: ${heroState.count})</div>
-        <div class="shop-item-cost">Costo: <span>${heroState.currentCost}</span></div>
+        <div class="shop-item-title">${hero.name} (Lvl ${hero.owned})</div>
+        <div class="shop-item-cost">Costo: <span>${hero.cost}</span></div>
         <div class="shop-item-desc">${hero.description}</div>
       </div>
-      <button class="shop-item-btn recruit-hero-btn" data-hero-id="${hero.id}">Reclutar</button>
+      <button class="shop-item-btn" data-type="hero" data-idx="${idx}">
+        Reclutar
+      </button>
     `;
     shopList.appendChild(item);
   });
@@ -397,27 +892,23 @@ function renderShop() {
   document.querySelectorAll(".shop-item-btn").forEach((btn) => {
     btn.onclick = () => {
       const type = btn.dataset.type;
-      const idx = parseInt(btn.dataset.idx, 10);
       if (type === "object") {
+        const idx = parseInt(btn.dataset.idx, 10);
         buyObject(idx);
       } else if (type === "building") {
+        const idx = parseInt(btn.dataset.idx, 10);
         buyBuilding(idx);
-      }
-    };
-  });
-
-  // Lógica del botón de compra de héroes
-  document.querySelectorAll(".recruit-hero-btn").forEach((btn) => {
-    btn.onclick = () => {
-      const heroId = btn.dataset.heroId;
-      const hero = RECRUITABLE_HEROES.find(h => h.id === heroId);
-      const state = gameState.recruitableHeroesState[heroId];
-      if (gameState.score >= state.currentCost) {
-        gameState.score -= state.currentCost;
-        state.count++;
-        state.currentCost = Math.floor(hero.cost * Math.pow(1.25, state.count));
-        updateDisplay();
-        renderShop();
+      } else if (type === "hero") {
+        const idx = parseInt(btn.dataset.idx, 10);
+        const hero = gameState.spiderHeroes[idx];
+        if (gameState.score >= hero.cost) {
+          gameState.score -= hero.cost;
+          hero.owned++;
+          hero.cost = Math.floor(hero.baseCost * Math.pow(1.15, hero.owned));
+          updateDisplay();
+          renderShop();
+          showPurchaseMessage(hero.id);
+        }
       }
     };
   });
@@ -446,6 +937,7 @@ function buyObject(idx) {
     obj.cost = Math.floor(obj.baseCost * Math.pow(1.15, obj.owned));
     updateDisplay();
     renderShop();
+    showPurchaseMessage(obj.id);
   }
 }
 
@@ -460,7 +952,320 @@ function buyBuilding(idx) {
     b.effect(gameState);
     updateDisplay();
     renderShop();
+    showPurchaseMessage(b.id);
   }
+}
+
+// === Event Logic for Heroes and Villains ===
+
+const EVENT_HEROES = [
+  {
+    id: "thor",
+    name: "Thor",
+    icon: "⚡",
+    effect: (gameState) => {
+      gameState.pointsPerClick *= 2;
+      setTimeout(() => gameState.pointsPerClick /= 2, 5000);
+    },
+    description: "PPS x2 por 5 segundos"
+  },
+  {
+    id: "mantis",
+    name: "Mantis",
+    icon: "🌸",
+    effect: (gameState) => {
+      const bonus = Math.floor(Math.random() * 2000);
+      gameState.score += bonus;
+    },
+    description: "Obtén de 0 a 2000 créditos"
+  },
+  {
+    id: "rocket",
+    name: "Rocket",
+    icon: "🚀",
+    effect: (gameState) => {
+      gameState.pointsPerClick += 10;
+      setTimeout(() => gameState.pointsPerClick -= 10, 10000);
+    },
+    description: "+10 al clic por 10 segundos"
+  },
+  {
+    id: "capAmerica",
+    name: "Capitán América",
+    icon: "⭐",
+    effect: (gameState) => {
+      const bonus = Math.floor(Math.random() * 3000);
+      gameState.score += bonus;
+      gameState.pointsPerClick += 5;
+      setTimeout(() => gameState.pointsPerClick -= 5, 15000);
+    },
+    description: "+5 al clic por 15 segundos y bonus de 0 a 3000 puntos"
+  },
+  {
+    id: "tonyStark",
+    name: "Tony Stark",
+    icon: "🤖",
+    effect: (gameState) => {
+      gameState.pointsPerSecond += 25;
+      setTimeout(() => gameState.pointsPerSecond -= 25, 10000);
+    },
+    description: "+25 PPS por 10 segundos"
+  },
+  {
+    id: "venom",
+    name: "Venom",
+    icon: "🕷️",
+    effect: (gameState) => {
+      gameState.pointsPerClick *= 1.5;
+      setTimeout(() => gameState.pointsPerClick /= 1.5, 8000);
+    },
+    description: "Multiplica tus puntos por clic x1.5 por 8 segundos"
+  },
+  {
+    id: "hawkeye",
+    name: "Ojo de Halcón",
+    icon: "🏹",
+    effect: (gameState) => {
+      gameState.pointsPerClick += 8;
+      setTimeout(() => gameState.pointsPerClick -= 8, 12000);
+    },
+    description: "+8 al clic por 12 segundos"
+  },
+  {
+    id: "blackWidow",
+    name: "Black Widow",
+    icon: "🕷️",
+    effect: (gameState) => {
+      const bonus = Math.floor(Math.random() * 2500);
+      gameState.score += bonus;
+      gameState.pointsPerSecond += 15;
+      setTimeout(() => gameState.pointsPerSecond -= 15, 10000);
+    },
+    description: "+15 PPS por 10 segundos y bonus de 0 a 2500 puntos"
+  },
+  {
+    id: "hulk",
+    name: "Hulk",
+    icon: "💪",
+    effect: (gameState) => {
+      gameState.pointsPerClick *= 2;
+      setTimeout(() => gameState.pointsPerClick /= 2, 6000);
+    },
+    description: "Duplica tus puntos por clic por 6 segundos"
+  },
+  {
+    id: "bucky",
+    name: "Bucky Barnes",
+    icon: "🎖️",
+    effect: (gameState) => {
+      const bonus = Math.floor(Math.random() * 1800);
+      gameState.score += bonus;
+      gameState.pointsPerClick += 4;
+      setTimeout(() => gameState.pointsPerClick -= 4, 14000);
+    },
+    description: "+4 al clic por 14 segundos y bonus de 0 a 1800 puntos"
+  },
+  {
+    id: "falcon",
+    name: "Falcon (Sam Wilson)",
+    icon: "🦅",
+    effect: (gameState) => {
+      gameState.pointsPerSecond += 20;
+      setTimeout(() => gameState.pointsPerSecond -= 20, 12000);
+    },
+    description: "+20 PPS por 12 segundos"
+  }
+];
+
+const EVENT_VILLAINS = [
+  {
+    id: "docOck",
+    name: "Doctor Octopus",
+    icon: "🧠",
+    effect: (gameState) => {
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - 10);
+      gameState.activeVillains.push({
+        id: "docOck",
+        timer: Date.now(),
+        pointsLost: 10
+      });
+    },
+    description: "Reduce tus puntos por clic en 10"
+  },
+  {
+    id: "kraven",
+    name: "Kraven",
+    icon: "🐆",
+    effect: (gameState) => {
+      const loss = Math.floor(Math.random() * 2000);
+      gameState.score = Math.max(0, gameState.score - loss);
+      gameState.activeVillains.push({
+        id: "kraven",
+        timer: Date.now(),
+        pointsLost: loss
+      });
+    },
+    description: "Te roba de 0 a 2000 puntos"
+  },
+  {
+    id: "shocker",
+    name: "Shocker",
+    icon: "⚡",
+    effect: (gameState) => {
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - 5);
+      gameState.activeVillains.push({
+        id: "shocker",
+        timer: Date.now(),
+        pointsLost: 5
+      });
+    },
+    description: "Reduce tus puntos por clic en 5"
+  },
+  {
+    id: "mrNegative",
+    name: "Mr. Negative",
+    icon: "🌓",
+    effect: (gameState) => {
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - 8);
+      gameState.activeVillains.push({
+        id: "mrNegative",
+        timer: Date.now(),
+        pointsLost: 8
+      });
+    },
+    description: "Reduce tus puntos por clic en 8"
+  },
+  {
+    id: "scorpion",
+    name: "Scorpion",
+    icon: "🦂",
+    effect: (gameState) => {
+      const loss = Math.floor(Math.random() * 1000);
+      gameState.score = Math.max(0, gameState.score - loss);
+      gameState.activeVillains.push({
+        id: "scorpion",
+        timer: Date.now(),
+        pointsLost: loss
+      });
+    },
+    description: "Te roba de 0 a 1000 puntos"
+  },
+  {
+    id: "rhino",
+    name: "Rhino",
+    icon: "🦏",
+    effect: (gameState) => {
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - 12);
+      gameState.activeVillains.push({
+        id: "rhino",
+        timer: Date.now(),
+        pointsLost: 12
+      });
+    },
+    description: "Reduce tus puntos por clic en 12"
+  },
+  {
+    id: "greenGoblin",
+    name: "Duende Verde",
+    icon: "🎃",
+    effect: (gameState) => {
+      const loss = Math.floor(Math.random() * 3000);
+      gameState.score = Math.max(0, gameState.score - loss);
+      gameState.activeVillains.push({
+        id: "greenGoblin",
+        timer: Date.now(),
+        pointsLost: loss
+      });
+    },
+    description: "Te roba de 0 a 3000 puntos"
+  },
+  {
+    id: "vulture",
+    name: "El Buitre",
+    icon: "🦅",
+    effect: (gameState) => {
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - 6);
+      gameState.activeVillains.push({
+        id: "vulture",
+        timer: Date.now(),
+        pointsLost: 6
+      });
+    },
+    description: "Reduce tus puntos por clic en 6"
+  },
+  {
+    id: "sandman",
+    name: "Hombre de Arena",
+    icon: "🏜️",
+    effect: (gameState) => {
+      const loss = Math.floor(Math.random() * 1500);
+      gameState.score = Math.max(0, gameState.score - loss);
+      gameState.activeVillains.push({
+        id: "sandman",
+        timer: Date.now(),
+        pointsLost: loss
+      });
+    },
+    description: "Te roba de 0 a 1500 puntos"
+  },
+  {
+    id: "electro",
+    name: "Electro",
+    icon: "⚡",
+    effect: (gameState) => {
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - 7);
+      gameState.activeVillains.push({
+        id: "electro",
+        timer: Date.now(),
+        pointsLost: 7
+      });
+    },
+    description: "Reduce tus puntos por clic en 7"
+  }
+];
+
+
+
+function handleClickEvent() {
+  const roll = Math.random();
+  if (roll < 0.2) {  // 20% de chance de héroe
+    const hero = EVENT_HEROES[Math.floor(Math.random() * EVENT_HEROES.length)];
+    showFloatingEvent(hero, "hero");
+  } else if (roll < 0.7) {  // 50% de chance de villano (total 70%)
+    const villain = EVENT_VILLAINS[Math.floor(Math.random() * EVENT_VILLAINS.length)];
+    showFloatingEvent(villain, "villano");
+  }
+}
+
+function drainByVillains() {
+  const now = Date.now();
+  gameState.activeVillains = gameState.activeVillains.filter(villain => {
+    const seconds = (now - villain.timer) / 1000;
+    
+    // Aplicar el efecto del villano basado en el tiempo
+    if (villain.id === "docOck" || villain.id === "shocker" || villain.id === "mrNegative" || 
+        villain.id === "rhino" || villain.id === "vulture" || villain.id === "electro") {
+      // Efecto de reducción de puntos por clic
+      const reduction = villain.pointsLost * (seconds / 10);
+      gameState.pointsPerClick = Math.max(0, gameState.pointsPerClick - reduction);
+    } else {
+      // Efecto de robo de puntos
+      const loss = Math.floor(villain.pointsLost * (seconds / 10));
+      gameState.score = Math.max(0, gameState.score - loss);
+    }
+    
+    return seconds < 10;
+  });
+}
+
+setInterval(drainByVillains, 1000);
+
+function showPopup(text) {
+  const div = document.createElement("div");
+  div.className = "popup";
+  div.textContent = text;
+  document.body.appendChild(div);
+  setTimeout(() => div.remove(), 3000);
 }
 
 // Click principal
@@ -468,6 +1273,106 @@ clickButton.addEventListener("click", () => {
   gameState.score += gameState.pointsPerClick;
   updateDisplay();
 });
+
+// Lanza eventos automáticamente cada 3 minutos
+setInterval(() => {
+  triggerRandomEvent();
+}, 180000); // cada 3 minutos (180000 ms)
+
+// Mostrar evento aleatorio al hacer clic
+function triggerRandomEvent() {
+  const maxActiveEvents = 3;
+  const currentEvents = document.querySelectorAll(".floating-event").length;
+  if (currentEvents >= maxActiveEvents) return;
+
+  const chance = Math.random();
+
+  if (chance < 0.1) {
+    // 10% héroe
+    const hero = EVENT_HEROES[Math.floor(Math.random() * EVENT_HEROES.length)];
+    showFloatingEvent(hero, "hero");
+  } else if (chance < 0.6) {  // Cambiado a 0.6 para 50% de chance de villano
+    // 50% villano
+    const villain = EVENT_VILLAINS[Math.floor(Math.random() * EVENT_VILLAINS.length)];
+    showFloatingEvent(villain, "villain");
+  }
+}
+
+function showFloatingEvent(character, type) {
+  const event = document.createElement("div");
+  event.className = "floating-event " + (type === "hero" ? "hero-event" : "villain-event");
+  event.innerHTML = character.icon;
+
+  // Posición aleatoria
+  event.style.left = `${Math.random() * 90}%`;
+  event.style.top = `${Math.random() * 75 + 10}%`;
+
+  document.body.appendChild(event);
+
+  let intervalId = null;
+  let secondsElapsed = 0;
+
+  if (type === "villain") {
+    intervalId = setInterval(() => {
+      secondsElapsed++;
+      
+      // Escalado por tiempo transcurrido
+      let percentage = 0;
+      if (secondsElapsed === 1) percentage = 0.05;  // 5%
+      else if (secondsElapsed === 2) percentage = 0.07;  // 7%
+      else if (secondsElapsed === 3) percentage = 0.14;  // 14%
+      else if (secondsElapsed === 4) percentage = 0.21;  // 21%
+      else percentage = 0.25;  // 25% máximo
+
+      const loss = Math.floor(gameState.score * percentage);
+      gameState.score = Math.max(0, gameState.score - loss);
+      updateDisplay();
+
+      // Mostrar mensaje de pérdida (opcional)
+      // showPurchaseMessage(`${character.name} te robó ${loss} créditos`);
+    }, 1000);
+  }
+
+  event.onclick = () => {
+    if (type === "hero") {
+      // Bonus de héroe
+      let bonus = 0;
+
+      switch (character.id) {
+        case "tonyStark":
+          bonus = 1000 + Math.floor(Math.random() * 1000);
+          break;
+        case "mantis":
+          bonus = Math.floor(Math.random() * 2000);
+          break;
+        case "thor":
+          // Simula x2 por 5 segundos
+          applyTemporaryMultiplier(2, 5000);
+          break;
+        // Agregá más casos según tu lista
+        default:
+          bonus = 100 + Math.floor(Math.random() * 500);
+      }
+
+      gameState.score += bonus;
+      showPurchaseMessage(character.id);
+    } else if (type === "villain") {
+      if (intervalId) clearInterval(intervalId);
+    }
+
+    // Desaparece al hacer clic
+    event.remove();
+  };
+
+  // Los héroes desaparecen solos
+  if (type === "hero") {
+    setTimeout(() => {
+      if (document.body.contains(event)) {
+        event.remove();
+      }
+    }, 10000);
+  }
+}
 
 // Sistema de generación automática de puntos
 function generatePoints() {
@@ -617,6 +1522,8 @@ setInterval(showRandomNews, 7000);
 
 // Mostrar la primera noticia al inicio
 showRandomNews();
+
+
 
 // Inicializar
 updateDisplay();
